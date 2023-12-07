@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Record Risk Related Observations</title>
+    <script src="https://cdn.jsdelivr.net/npm/recordrtc"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Record Risk Related Observations</h1>
+    <h2>Please provide the client specific Risk Recommendation along with Industry_type, Sum_insured, Location</h2>
+    <form id="recordingForm" method="post" enctype="multipart/form-data">
+        <button id="recordButton">Record</button>
+        <button id="stopButton" disabled>Stop</button>
+        <br><br>
+        <audio id="audioPlayer" controls></audio>
+        <br><br>
+        <button id="submitBtn" disabled>Submit</button>
+    </form>
+
+    <script>
+        const recordButton = document.getElementById('recordButton');
+        const stopButton = document.getElementById('stopButton');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const submitBtn = document.getElementById('submitBtn');
+
+        let recorder;
+
+        recordButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
+        submitBtn.addEventListener('click', submitRecording);
+
+        function startRecording() {
+            recordButton.disabled = true;
+            stopButton.disabled = false;
+            submitBtn.disabled = true;
+            audioPlayer.src = '';
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    recorder = RecordRTC(stream, {
+                        type: 'audio',
+                        mimeType: 'audio/m4a' // Change mimeType to audio/mp4 for m4a format
+                    });
+                    recorder.startRecording();
+                })
+                .catch(function (err) {
+                    console.error('Error accessing microphone', err);
+                });
+        }
+
+        function stopRecording() {
+            recordButton.disabled = false;
+            stopButton.disabled = true;
+            submitBtn.disabled = false;
+
+            recorder.stopRecording(function () {
+                let blob = recorder.getBlob();
+                audioPlayer.src = URL.createObjectURL(blob);
+            });
+        }
+
+        function submitRecording() {
+            let formData = new FormData();
+            formData.append('audio', recorder.getBlob(), generateFileName() + '.m4a'); // Change file extension to .m4a
+
+            axios.post('http://127.0.0.1:5000', formData) // Replace with your actual Flask API endpoint
+                .then(function (response) {
+                    console.log('Upload successful');
+                    console.log(response.data);
+                    // Handle the response
+                })
+                .catch(function (error) {
+                    console.error('Upload failed');
+                    console.error(error);
+                });
+        }
+
+        function generateFileName() {
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[-T:]/g, '').split('.')[0];
+            return 'recording_' + timestamp;
+        }
+    </script>
+</body>
+
+</html>

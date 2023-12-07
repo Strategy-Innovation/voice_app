@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Results</h1>
+    
+    <h2>Customer Details</h2>
+    <p>Name: {{ result['name'] }}</p>
+    <p>Industry: {{ result['industry'] }}</p>
+    <p>Sum Insured: {{ result['sum_insured'] }}</p>
+    <p>Category: {{ result['category'] }}</p>
+    <p>Location: {{ result['location'] }}</p>
+    
+    <h2>Policy Recommendations based on Category and Location(Pie Chart)</h2>
+    <div id="policy-pie-chart"></div>
+
+    <script>
+        // Convert the policies_counts dictionary to an array of objects
+        var policyData = Object.entries({{ result['policies_counts'] | tojson }}).map(([key, value]) => ({ label: key, value }));
+
+        // Create data for the pie chart
+        var policyTrace = {
+            labels: policyData.map(item => item.label),
+            values: policyData.map(item => item.value),
+            type: 'pie'
+        };
+
+        // Layout for the pie chart
+        var policyLayout = {
+            height: 400,
+            width: 500
+        };
+
+        // Create pie chart
+        Plotly.newPlot('policy-pie-chart', [policyTrace], policyLayout);
+    </script>
+    
+    
+    <h2>Add-ons Options based on Category and Location (Pie Chart)</h2>
+    <div id="pie-chart"></div>
+
+    <script>
+        // Convert the addons_counts dictionary to an array of objects
+        var data = Object.entries({{ result['addons_counts'] | tojson }}).map(([key, value]) => ({ label: key, value }));
+
+        // Create data for the pie chart
+        var trace = {
+            labels: data.map(item => item.label),
+            values: data.map(item => item.value),
+            type: 'pie'
+        };
+
+        // Layout for the pie chart
+        var layout = {
+            height: 400,
+            width: 500
+        };
+
+        // Create pie chart
+        Plotly.newPlot('pie-chart', [trace], layout);
+    </script>
+    
+    <h2>OpenAI GPT-3 Recommendation</h2>
+    <ul>
+    {% for line in gpt3_recommendation.split('\n') %}
+        {% if line.strip() %}  <!-- Check if the line is not empty after stripping whitespace -->
+            <li>{{ line }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul> 
+</body>
+</html>
