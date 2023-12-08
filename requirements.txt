@@ -1,6 +1,6 @@
 aiobotocore @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_71xswk40o_/croot/aiobotocore_1682537536268/work
 aiofiles @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_f56ag8l7kr/croot/aiofiles_1683773599608/work
-aiohttp @ file:///Users/cbousseau/work/recipes/ci_py311/aiohttp_1677926054700/work
+Iaiohttp @ file:///Users/cbousseau/work/recipes/ci_py311/aiohttp_1677926054700/work
 aioitertools @ file:///tmp/build/80754af9/aioitertools_1607109665762/work
 aiosignal @ file:///tmp/build/80754af9/aiosignal_1637843061372/work
 aiosqlite @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_3d75lecab1/croot/aiosqlite_1683773918307/work
@@ -21,8 +21,6 @@ arrow @ file:///Users/cbousseau/work/recipes/ci_py311/arrow_1677931434012/work
 astroid @ file:///Users/cbousseau/work/recipes/ci_py311/astroid_1677926110661/work
 astropy @ file:///Users/cbousseau/work/recipes/ci_py311_2/astropy_1678994125362/work
 asttokens @ file:///opt/conda/conda-bld/asttokens_1646925590279/work
-async-timeout @ file:///Users/cbousseau/work/recipes/ci_py311/async-timeout_1677925030615/work
-atomicwrites==1.4.0
 attrs @ file:///Users/cbousseau/work/recipes/ci_py311/attrs_1677906550284/work
 Automat @ file:///tmp/build/80754af9/automat_1600298431173/work
 autopep8 @ file:///opt/conda/conda-bld/autopep8_1650463822033/work

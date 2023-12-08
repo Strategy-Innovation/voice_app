@@ -29,7 +29,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-# Set your OpenAI GPT-3 API key here
+# Set yor OpenAI GPT-3 API key here
 openai.api_key = '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'
 #openai.api_key = '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'
 client = openai.api_key
