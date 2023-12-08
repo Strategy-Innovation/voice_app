@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'riskrobservation'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_307DEBC9AA734CC6B35A5931501FC8B2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_059B9F3B0D49418882D1FCFF44AC9504 }}
